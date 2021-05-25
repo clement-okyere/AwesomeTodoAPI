@@ -1,22 +1,21 @@
-import express from "express";
-import mongoose from "mongoose";
-import route from "./routes/todo";
-import routes from "./startup/routes";
+import express from 'express';
+import mongoose from 'mongoose';
+import routes from './startup/routes';
 const app = express();
 
 mongoose
-    .connect("mongodb://localhost/todo", {
+    .connect('mongodb://localhost/todo', {
         useNewUrlParser: true,
-        useUnifiedTopology: true
+        useUnifiedTopology: true,
     })
-  .then(() => console.log("connected to mongodb successfully"))
-  .catch((err) => console.log("error connecting to mongodb"));
-  
+    .then(() => console.log('connected to mongodb successfully'))
+    .catch((err) => console.log('error connecting to mongodb'));
 
 routes(app);
 
 const PORT = process.env.port || 3000;
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Awesome Todo Api listening on ${PORT}!`);
 });
 
+export default server;
