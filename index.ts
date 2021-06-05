@@ -13,7 +13,7 @@ mongoose
 
 routes(app);
 
-const PORT = process.env.port || 3000;
+const PORT = process.env.port || 3001;
 const server = app.listen(PORT, () => {
     console.log(`Awesome Todo Api listening on ${PORT}!`);
 });
