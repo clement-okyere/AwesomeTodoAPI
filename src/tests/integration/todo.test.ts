@@ -19,9 +19,9 @@ describe('/api/todos', () => {
         });
 
         describe('POST/', () => {
-            it('should add new todo', async () => {
+            it('should save the todo if it is valid', async () => {
                 const todo = {
-                    name: "test",
+                    name: "tests",
                     completed: false
                }
 
@@ -30,7 +30,7 @@ describe('/api/todos', () => {
                     .send(todo);
                 const { name } = res.body;
                 expect(res.status).toBe(200);
-                expect(name).toBe('Todo');
+                expect(name).toBe('tests');
             });
         });
 })
