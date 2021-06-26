@@ -1,5 +1,6 @@
 import request from "supertest";
 import server from "../../../index";
+import Todo from "../../models/todo";
 
 describe('/api/todos', () => {
     beforeEach(() => {
@@ -14,7 +15,7 @@ describe('/api/todos', () => {
             it('should return all todos', async () => {
                 const res = await request(server).get("/api/todos");
                 expect(res.status).toBe(200);
-                expect(res.text).toBe("todo list");
+                //expect(res.text).toBe("todo list");
             });
         });
 
@@ -33,4 +34,24 @@ describe('/api/todos', () => {
                 expect(name).toBe('tests');
             });
         });
+    
+    describe('PUT/', () => {
+
+       it('should not find deleted todo after delete', async () => {
+            const todo = new Todo({
+                name: 'newTodo',
+                completed: false,
+            });
+           
+           await todo.save();
+
+           const res = await request(server)
+               .put(`/api/todos/${todo._id}/complete`)
+               .send(todo);
+           
+           //check update updated todo complete status
+           const updatedTodo = await Todo.findById(todo._id);
+           expect(updatedTodo?.completed).toBe(true);
+       });
+   });
 })
