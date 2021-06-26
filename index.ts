@@ -1,6 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import routes from './src/startup/routes';
+import dotenv from 'dotenv'
+dotenv.config();
 const app = express();
 
 mongoose
