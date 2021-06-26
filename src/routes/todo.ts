@@ -18,5 +18,18 @@ route.post("/", async (req: Request, res: Response) => {
     res.status(200).send(result);
 });
 
+route.put('/:id/complete', async (req: Request, res: Response) => {
+
+    let todo = await Todo.findById(req.params.id);
+
+    if (!todo)
+        return res.status(400).send(`Todo with id ${req.params.id} not found`);
+    
+    todo.completed = !todo.completed;
+
+    const result = await todo.save()  
+    res.status(200).send(result);
+});
+
 export default route;
 
