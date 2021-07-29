@@ -22,7 +22,8 @@ route.post("/login", async (req: Request, res: Response) => {
   if (!validPassword)
         return res.status(401).send("Invalid username or password");
 
-  res.send("");
+  const token = generateToken({ id: user._id });
+  res.send(token);
 });
 
 
