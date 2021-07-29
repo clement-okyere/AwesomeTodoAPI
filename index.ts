@@ -2,11 +2,13 @@ import express from 'express';
 import mongoose from 'mongoose';
 import routes from './src/startup/routes';
 import dotenv from 'dotenv'
+import config from "config";
 dotenv.config();
 const app = express();
 
+console.log("Db Configurations", config.get("db"))
 mongoose
-    .connect('mongodb://localhost/todo', {
+    .connect(config.get('db'), {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     })
@@ -15,7 +17,7 @@ mongoose
 
 routes(app);
 
-const PORT = process.env.port || 3001;
+const PORT = process.env.port || config.get("PORT");
 const server = app.listen(PORT, () => {
     console.log(`Awesome Todo Api listening on ${PORT}!`);
 });

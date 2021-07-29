@@ -7,8 +7,9 @@ describe('/api/todos', () => {
 
     })
 
-    afterEach(() => {
+    afterEach(async () => {
         server.close();
+        await Todo.remove({});
     })
 
       describe("GET/", () => {
